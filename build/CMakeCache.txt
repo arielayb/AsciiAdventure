@@ -231,12 +231,6 @@ LIBRARY_OUTPUT_PATH:PATH=
 //The directory containing a CMake configuration file for SDL2.
 SDL2_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/SDL2
 
-//Path to a file.
-SDL2_INCLUDE_DIR:FILEPATH=SDL2_INCLUDE_DIR-NOTFOUND
-
-//Path to a library.
-SDL2_LIBRARY:FILEPATH=SDL2_LIBRARY-NOTFOUND
-
 
 ########################
 # INTERNAL cache entries

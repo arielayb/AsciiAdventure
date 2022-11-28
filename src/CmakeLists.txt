@@ -1,0 +1,3 @@
+set(assciiAd_files Main.cpp)
+
+add_library(src ${assciiAd_files})

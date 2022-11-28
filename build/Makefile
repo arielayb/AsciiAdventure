@@ -130,19 +130,34 @@ AsciiAdventure/fast:
 .PHONY : AsciiAdventure/fast
 
 # target to build an object file
-src/main.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/main.o
-.PHONY : src/main.o
+src/ImageManager.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageManager.o
+.PHONY : src/ImageManager.o
 
 # target to preprocess a source file
-src/main.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/main.i
-.PHONY : src/main.i
+src/ImageManager.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageManager.i
+.PHONY : src/ImageManager.i
 
 # target to generate assembly for a file
-src/main.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/main.s
-.PHONY : src/main.s
+src/ImageManager.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageManager.s
+.PHONY : src/ImageManager.s
+
+# target to build an object file
+src/Main.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/Main.o
+.PHONY : src/Main.o
+
+# target to preprocess a source file
+src/Main.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/Main.i
+.PHONY : src/Main.i
+
+# target to generate assembly for a file
+src/Main.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/Main.s
+.PHONY : src/Main.s
 
 # Help Target
 help:
@@ -153,9 +168,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... AsciiAdventure"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... src/ImageManager.o"
+	@echo "... src/ImageManager.i"
+	@echo "... src/ImageManager.s"
+	@echo "... src/Main.o"
+	@echo "... src/Main.i"
+	@echo "... src/Main.s"
 .PHONY : help
 
 

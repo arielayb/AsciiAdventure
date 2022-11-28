@@ -69,31 +69,47 @@ include CMakeFiles/AsciiAdventure.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/AsciiAdventure.dir/flags.make
 
-CMakeFiles/AsciiAdventure.dir/src/main.o: CMakeFiles/AsciiAdventure.dir/flags.make
-CMakeFiles/AsciiAdventure.dir/src/main.o: ../src/main.cpp
-CMakeFiles/AsciiAdventure.dir/src/main.o: CMakeFiles/AsciiAdventure.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aaybar/Documents/AsciiAdventure/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/AsciiAdventure.dir/src/main.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/AsciiAdventure.dir/src/main.o -MF CMakeFiles/AsciiAdventure.dir/src/main.o.d -o CMakeFiles/AsciiAdventure.dir/src/main.o -c /home/aaybar/Documents/AsciiAdventure/src/main.cpp
+CMakeFiles/AsciiAdventure.dir/src/ImageManager.o: CMakeFiles/AsciiAdventure.dir/flags.make
+CMakeFiles/AsciiAdventure.dir/src/ImageManager.o: ../src/ImageManager.cpp
+CMakeFiles/AsciiAdventure.dir/src/ImageManager.o: CMakeFiles/AsciiAdventure.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aaybar/Documents/AsciiAdventure/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/AsciiAdventure.dir/src/ImageManager.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/AsciiAdventure.dir/src/ImageManager.o -MF CMakeFiles/AsciiAdventure.dir/src/ImageManager.o.d -o CMakeFiles/AsciiAdventure.dir/src/ImageManager.o -c /home/aaybar/Documents/AsciiAdventure/src/ImageManager.cpp
 
-CMakeFiles/AsciiAdventure.dir/src/main.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/AsciiAdventure.dir/src/main.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aaybar/Documents/AsciiAdventure/src/main.cpp > CMakeFiles/AsciiAdventure.dir/src/main.i
+CMakeFiles/AsciiAdventure.dir/src/ImageManager.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/AsciiAdventure.dir/src/ImageManager.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aaybar/Documents/AsciiAdventure/src/ImageManager.cpp > CMakeFiles/AsciiAdventure.dir/src/ImageManager.i
 
-CMakeFiles/AsciiAdventure.dir/src/main.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/AsciiAdventure.dir/src/main.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aaybar/Documents/AsciiAdventure/src/main.cpp -o CMakeFiles/AsciiAdventure.dir/src/main.s
+CMakeFiles/AsciiAdventure.dir/src/ImageManager.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/AsciiAdventure.dir/src/ImageManager.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aaybar/Documents/AsciiAdventure/src/ImageManager.cpp -o CMakeFiles/AsciiAdventure.dir/src/ImageManager.s
+
+CMakeFiles/AsciiAdventure.dir/src/Main.o: CMakeFiles/AsciiAdventure.dir/flags.make
+CMakeFiles/AsciiAdventure.dir/src/Main.o: ../src/Main.cpp
+CMakeFiles/AsciiAdventure.dir/src/Main.o: CMakeFiles/AsciiAdventure.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aaybar/Documents/AsciiAdventure/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/AsciiAdventure.dir/src/Main.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/AsciiAdventure.dir/src/Main.o -MF CMakeFiles/AsciiAdventure.dir/src/Main.o.d -o CMakeFiles/AsciiAdventure.dir/src/Main.o -c /home/aaybar/Documents/AsciiAdventure/src/Main.cpp
+
+CMakeFiles/AsciiAdventure.dir/src/Main.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/AsciiAdventure.dir/src/Main.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aaybar/Documents/AsciiAdventure/src/Main.cpp > CMakeFiles/AsciiAdventure.dir/src/Main.i
+
+CMakeFiles/AsciiAdventure.dir/src/Main.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/AsciiAdventure.dir/src/Main.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aaybar/Documents/AsciiAdventure/src/Main.cpp -o CMakeFiles/AsciiAdventure.dir/src/Main.s
 
 # Object files for target AsciiAdventure
 AsciiAdventure_OBJECTS = \
-"CMakeFiles/AsciiAdventure.dir/src/main.o"
+"CMakeFiles/AsciiAdventure.dir/src/ImageManager.o" \
+"CMakeFiles/AsciiAdventure.dir/src/Main.o"
 
 # External object files for target AsciiAdventure
 AsciiAdventure_EXTERNAL_OBJECTS =
 
-AsciiAdventure: CMakeFiles/AsciiAdventure.dir/src/main.o
+AsciiAdventure: CMakeFiles/AsciiAdventure.dir/src/ImageManager.o
+AsciiAdventure: CMakeFiles/AsciiAdventure.dir/src/Main.o
 AsciiAdventure: CMakeFiles/AsciiAdventure.dir/build.make
 AsciiAdventure: CMakeFiles/AsciiAdventure.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/aaybar/Documents/AsciiAdventure/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable AsciiAdventure"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/aaybar/Documents/AsciiAdventure/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable AsciiAdventure"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/AsciiAdventure.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

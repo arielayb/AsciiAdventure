@@ -2,6 +2,8 @@ project("AsciiAdventure")
 
 include_directories("include")
 
+link_directories("AsciiAdventure/images/")
+
 file(GLOB SOURCES "include/*.h" "src/*.cpp")
 find_package(SDL2 REQUIRED)
 

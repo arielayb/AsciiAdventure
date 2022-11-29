@@ -41,7 +41,7 @@ bool Main::mainLoop(){
         "Ascii Adventure",                  // window title
         SDL_WINDOWPOS_UNDEFINED,           // initial x position
         SDL_WINDOWPOS_UNDEFINED,           // initial y position
-        1080,                               // width, in pixels
+        1200,                               // width, in pixels
         920,                               // height, in pixels
         SDL_WINDOW_OPENGL                  // flags - see below
     );
@@ -63,16 +63,9 @@ bool Main::mainLoop(){
     //create the renderer
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE | SDL_RENDERER_PRESENTVSYNC);
 
-    TTF_Font* fontTypes = TTF_OpenFont("images/UbuntuMono-B.ttf", 30);
+    TTF_Font* fontTypes = TTF_OpenFont("images/UbuntuMono-B.ttf", 50);
 
-    std::stringstream title;
-    title << R"(        
-         /\            (_|_)     /\      | |               | |                 
-        /  \   ___  ___ _ _     /  \   __| |_   _____ _ __ | |_ _   _ _ __ ___ 
-       / /\ \ / __|/ __| | |   / /\ \ / _` \ \ / / _ \ '_ \| __| | | | '__/ _ \
-      / ____ \\__ \ (__| | |  / ____ \ (_| |\ V /  __/ | | | |_| |_| | | |  __/
-     /_/    \_\___/\___|_|_| /_/    \_\__,_| \_/ \___|_| |_|\__|\__,_|_|  \___|
-    )" << std::endl;
+    std::string title = "Ascii Adventure";
 
     std::string input;
 
@@ -83,15 +76,14 @@ bool Main::mainLoop(){
 	SDL_Color fontColor = { 255, 255, 255 };
 
     std::string opt = "Select your option:";
-
-	SDL_Texture *titleTxt = load.loadFont(title.str(), fontTypes, fontColor, renderer);
+	SDL_Texture *titleTxt = load.loadFont(title, fontTypes, fontColor, renderer);
 
     while(!quit){
         //clear the rendering so that we can re-render/update the screen
         SDL_RenderClear(renderer);
         
         //render the text of choices
-        load.renderTexture(800, 400, titleTxt, renderer, NULL);
+        load.renderTexture(400, 400, titleTxt, renderer, NULL);
 
 
         while(SDL_PollEvent(&events)){

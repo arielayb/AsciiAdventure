@@ -1,6 +1,8 @@
 #include <thread>
 #include <Main.h>
+#include <ImageManagerFactory.h>
 #include <ImageManager.h>
+#include <AbstractImageManager.h>
 
 Main::Main(){
 
@@ -69,6 +71,13 @@ bool Main::mainLoop(){
     //create the renderer
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE | SDL_RENDERER_PRESENTVSYNC);
 
+    //create the openGL context
+	mainGLContext = SDL_GL_CreateContext(window);
+	if (mainGLContext == NULL)
+	{
+		printf("OpenGL context could not be created! SDL Error: %s\n", SDL_GetError());
+	}
+
     TTF_Font* fontTypes = TTF_OpenFont("images/UbuntuMono-B.ttf", 50);
 
     std::string title = "Iron Age Stories";
@@ -76,20 +85,22 @@ bool Main::mainLoop(){
     std::string input;
 
     //  load the textures
-	ImageManager load;
+	// ImageManager load;
+    ImageManagerFactory* imgFac = new ImageManagerFactory();
+    AbstractImageManager* imgMgr = imgFac->createImageManager();
 
     //  give the font color
 	SDL_Color fontColor = { 255, 255, 255 };
 
     std::string opt = "Select your option:";
-	SDL_Texture *titleTxt = load.loadFont(title, fontTypes, fontColor, renderer);
+	SDL_Texture *titleTxt = imgMgr->loadFont(title, fontTypes, fontColor, renderer);
 
     while(!quit){
         //clear the rendering so that we can re-render/update the screen
         SDL_RenderClear(renderer);
         
         //render the text of choices
-        load.renderTexture(400, 400, titleTxt, renderer, NULL);
+        imgMgr->renderTexture(400, 400, titleTxt, renderer, NULL);
 
 
         while(SDL_PollEvent(&events)){
@@ -117,6 +128,44 @@ bool Main::mainLoop(){
         //update the screen
         SDL_RenderPresent(renderer);
     }
+
+    //  Deallocate surface
+	SDL_DestroyTexture(image);
+
+	//  destroy render
+	SDL_DestroyRenderer(renderer);
+
+	//  delete the openGL context
+	SDL_GL_DeleteContext(mainGLContext);
+
+    //  Destroy window
+    SDL_DestroyWindow(window);
+ 
+	//  close the font
+	TTF_CloseFont(fontTypes);
+	
+	// SDL_FreeCursor(cursor);
+
+	//  free the music pointers
+	// Mix_FreeMusic(music);
+	// Mix_FreeMusic(music2);
+	// music = NULL;
+	// music2 = NULL;
+
+	// //  free soundFX pointers
+	// Mix_FreeChunk(choice);
+	// Mix_FreeChunk(success);
+	// choice = NULL;
+	// success = NULL;
+
+	//  quit font/text system
+	TTF_Quit();
+
+	//  quit image systems
+	IMG_Quit();
+
+	//  quit the sound system
+	Mix_Quit();
 
     // Clean up
     SDL_Quit();

@@ -5,7 +5,7 @@
 
 class AbstractImageManagerFactory {
     public:
-        virtual AbstractImageManager* CreateImageManager() = 0;
+        virtual AbstractImageManager* createImageManager() = 0;
 
 };
 

@@ -20,7 +20,8 @@ class Main{
         //variables for the window
 		SDL_Window* window = NULL;
  
-		SDL_GLContext glContext = NULL;
+		//variables to load openGL stuff...
+		SDL_GLContext mainGLContext;
 
         //  ceate player handler event
 	    SDL_Event events;

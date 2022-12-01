@@ -1,7 +1,8 @@
 set(include_files
-    AbstractImageManagerFactory
-    AbstractImageManager
+    AbstractImageManagerFactory.h
+    AbstractImageManager.h
     ImageManager.h
+    ImageManagerFactory.h
     Main.h
 )
 

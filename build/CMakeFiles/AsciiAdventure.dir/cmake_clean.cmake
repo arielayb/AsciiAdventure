@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "AsciiAdventure.pdb"
   "CMakeFiles/AsciiAdventure.dir/src/ImageManager.o"
   "CMakeFiles/AsciiAdventure.dir/src/ImageManager.o.d"
+  "CMakeFiles/AsciiAdventure.dir/src/ImageManagerFactory.o"
+  "CMakeFiles/AsciiAdventure.dir/src/ImageManagerFactory.o.d"
   "CMakeFiles/AsciiAdventure.dir/src/Main.o"
   "CMakeFiles/AsciiAdventure.dir/src/Main.o.d"
 )

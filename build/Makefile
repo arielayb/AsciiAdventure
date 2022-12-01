@@ -145,6 +145,21 @@ src/ImageManager.s:
 .PHONY : src/ImageManager.s
 
 # target to build an object file
+src/ImageManagerFactory.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageManagerFactory.o
+.PHONY : src/ImageManagerFactory.o
+
+# target to preprocess a source file
+src/ImageManagerFactory.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageManagerFactory.i
+.PHONY : src/ImageManagerFactory.i
+
+# target to generate assembly for a file
+src/ImageManagerFactory.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageManagerFactory.s
+.PHONY : src/ImageManagerFactory.s
+
+# target to build an object file
 src/Main.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/Main.o
 .PHONY : src/Main.o
@@ -171,6 +186,9 @@ help:
 	@echo "... src/ImageManager.o"
 	@echo "... src/ImageManager.i"
 	@echo "... src/ImageManager.s"
+	@echo "... src/ImageManagerFactory.o"
+	@echo "... src/ImageManagerFactory.i"
+	@echo "... src/ImageManagerFactory.s"
 	@echo "... src/Main.o"
 	@echo "... src/Main.i"
 	@echo "... src/Main.s"

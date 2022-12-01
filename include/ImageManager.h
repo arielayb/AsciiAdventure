@@ -3,9 +3,6 @@
 
 #include <sstream>
 #include <stdio.h>
-#include <string>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
 #include "AbstractImageManager.h"
 
 //load images and other media

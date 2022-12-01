@@ -11,6 +11,12 @@ Main::~Main(){
 }
 
 bool Main::mainLoop(){
+
+    //create some attributes for openGL:
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
     bool quit = false;
     bool menu = true;
 
@@ -38,7 +44,7 @@ bool Main::mainLoop(){
 
     // Create an application window with the following settings:
     window = SDL_CreateWindow(
-        "Ascii Adventure",                  // window title
+        "Iron Age Stories",                  // window title
         SDL_WINDOWPOS_UNDEFINED,           // initial x position
         SDL_WINDOWPOS_UNDEFINED,           // initial y position
         1200,                               // width, in pixels
@@ -65,7 +71,7 @@ bool Main::mainLoop(){
 
     TTF_Font* fontTypes = TTF_OpenFont("images/UbuntuMono-B.ttf", 50);
 
-    std::string title = "Ascii Adventure";
+    std::string title = "Iron Age Stories";
 
     std::string input;
 

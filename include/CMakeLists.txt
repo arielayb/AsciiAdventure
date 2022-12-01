@@ -1,4 +1,6 @@
-set(include_files 
+set(include_files
+    AbstractImageManagerFactory
+    AbstractImageManager
     ImageManager.h
     Main.h
 )

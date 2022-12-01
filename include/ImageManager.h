@@ -6,10 +6,10 @@
 #include <string>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include "AbstractImageManager.h"
 
 //load images and other media
-class ImageManager
-{
+class ImageManager : public AbstractImageManager {
 	public:
 		ImageManager();
 		ImageManager(SDL_Texture* image, SDL_Renderer* render);
@@ -28,11 +28,11 @@ class ImageManager
 		int layerState = 0;
 
 		//load the texture and font
-		SDL_Texture* loadTexture(std::string file, SDL_Texture *textures, SDL_Renderer *render);
-		SDL_Texture* loadFont(std::string time, TTF_Font* fontType, SDL_Color fontColor, SDL_Renderer* render);
+		virtual SDL_Texture* loadTexture(std::string file, SDL_Texture *textures, SDL_Renderer *render);
+		virtual SDL_Texture* loadFont(std::string time, TTF_Font* fontType, SDL_Color fontColor, SDL_Renderer* render);
 
 		//render image
-		bool renderTexture(float x, float y, SDL_Texture* image = NULL, SDL_Renderer* render = NULL, SDL_Rect* clip = NULL);
+		virtual bool renderTexture(float x, float y, SDL_Texture* image = NULL, SDL_Renderer* render = NULL, SDL_Rect* clip = NULL);
 
 	private:
 		SDL_Texture* _image;

@@ -719,9 +719,20 @@ CMakeFiles/AsciiAdventure.dir/src/Main.o: ../src/Main.cpp \
   /usr/include/SDL2/SDL_ttf.h \
   /usr/include/SDL2/SDL.h \
   /usr/include/SDL2/SDL_mixer.h \
+  /usr/include/SDL2/SDL_opengl.h \
+  /usr/include/SDL2/SDL_opengl_glext.h \
+  /usr/include/SDL2/SDL_events.h \
+  /usr/include/SDL_console/SDL_console.h \
+  /usr/include/SDL2/SDL_video.h \
+  /usr/include/SDL2/begin_code.h \
+  /usr/include/SDL2/close_code.h \
   ../include/ImageManager.h \
   /usr/include/SDL2/SDL_image.h
 
+
+/usr/include/SDL2/SDL_opengl_glext.h:
+
+/usr/include/SDL2/SDL_opengl.h:
 
 ../include/Main.h:
 
@@ -1098,6 +1109,8 @@ CMakeFiles/AsciiAdventure.dir/src/Main.o: ../src/Main.cpp \
 /usr/lib/gcc/x86_64-linux-gnu/11/include/pconfigintrin.h:
 
 /usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+/usr/include/SDL_console/SDL_console.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 

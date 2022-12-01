@@ -5,7 +5,6 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_events.h>
-#include <SDL_console/SDL_console.h>
 
 #ifndef _MAIN_H
 #define _MAIN_H

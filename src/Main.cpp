@@ -1,15 +1,21 @@
 #include <thread>
 #include <Main.h>
-#include <ImageManagerFactory.h>
-#include <ImageManager.h>
-#include <AbstractImageManager.h>
+#include <filesystem>
 
 Main::Main(){
 
 }
 
 Main::~Main(){
+    if(imgFac != nullptr){
+        delete imgFac;
+        imgFac = nullptr;
+    }
 
+    if(imgMgr != nullptr){
+        delete imgMgr;
+        imgMgr = nullptr;
+    }
 }
 
 bool Main::mainLoop(){
@@ -20,7 +26,7 @@ bool Main::mainLoop(){
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
     bool quit = false;
-    bool menu = true;
+    startTitle = true;
 
 //  to count the frame rate
 	//Timer fps;
@@ -86,8 +92,14 @@ bool Main::mainLoop(){
 
     //  load the textures
 	// ImageManager load;
-    ImageManagerFactory* imgFac = new ImageManagerFactory();
-    AbstractImageManager* imgMgr = imgFac->createImageManager();
+    imgFac = new ImageManagerFactory();
+    imgMgr = imgFac->createImageManagerWithParams(image, renderer);
+
+    //load image file
+    // image loader manager 
+    imgLoadFac = new ImageLoaderManagerFactory();
+    imgLoadMgr = imgLoadFac->createImageLoaderManager();
+    imgLoadMgr->setImagesFromFile(image, "images/DawnLike/Characters/Player1.json");
 
     //  give the font color
 	SDL_Color fontColor = { 255, 255, 255 };
@@ -102,13 +114,14 @@ bool Main::mainLoop(){
         //render the text of choices
         imgMgr->renderTexture(400, 400, titleTxt, renderer, NULL);
 
-
         while(SDL_PollEvent(&events)){
             //user game menu options below
             //user can quit the game on ESC key
-            if (events.type == SDL_QUIT || events.key.keysym.sym == SDLK_ESCAPE)
-            {
-                quit = true;
+            if(startTitle){
+                if (events.type == SDL_QUIT || events.key.keysym.sym == SDLK_ESCAPE)
+                {
+                    quit = true;
+                }
             }
         }
         
@@ -169,6 +182,8 @@ bool Main::mainLoop(){
 
     // Clean up
     SDL_Quit();
+
+    
 
     return quit;
 }

@@ -5,6 +5,10 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_events.h>
+#include <AbstractImageManagerFactory.h>
+#include <AbstractImageLoaderManagerFactory.h>
+#include <ImageLoaderManagerFactory.h>
+#include <ImageManagerFactory.h>
 
 #ifndef _MAIN_H
 #define _MAIN_H
@@ -44,9 +48,15 @@ class Main{
         //variables for the texture and image
 		SDL_Texture* image = NULL;
 
+		ImageManagerFactory* imgFac = nullptr;
+    	AbstractImageManager* imgMgr = nullptr;
+		ImageLoaderManagerFactory* imgLoadFac = nullptr;
+    	AbstractImageLoaderManager* imgLoadMgr = nullptr;
+
     private:
         
 		SDL_Texture* msgImage_ = NULL;
+		bool startTitle;
 };
 
 #endif

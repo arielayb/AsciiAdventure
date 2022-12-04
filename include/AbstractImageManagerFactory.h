@@ -6,6 +6,8 @@
 class AbstractImageManagerFactory {
     public:
         virtual AbstractImageManager* createImageManager() = 0;
+        virtual AbstractImageManager* createImageManagerWithParams(SDL_Texture* image, 
+                                                    SDL_Renderer* render) = 0;
 
 };
 

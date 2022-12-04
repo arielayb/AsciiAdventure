@@ -130,6 +130,36 @@ AsciiAdventure/fast:
 .PHONY : AsciiAdventure/fast
 
 # target to build an object file
+src/ImageLoaderManager.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageLoaderManager.o
+.PHONY : src/ImageLoaderManager.o
+
+# target to preprocess a source file
+src/ImageLoaderManager.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageLoaderManager.i
+.PHONY : src/ImageLoaderManager.i
+
+# target to generate assembly for a file
+src/ImageLoaderManager.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageLoaderManager.s
+.PHONY : src/ImageLoaderManager.s
+
+# target to build an object file
+src/ImageLoaderManagerFactory.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageLoaderManagerFactory.o
+.PHONY : src/ImageLoaderManagerFactory.o
+
+# target to preprocess a source file
+src/ImageLoaderManagerFactory.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageLoaderManagerFactory.i
+.PHONY : src/ImageLoaderManagerFactory.i
+
+# target to generate assembly for a file
+src/ImageLoaderManagerFactory.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageLoaderManagerFactory.s
+.PHONY : src/ImageLoaderManagerFactory.s
+
+# target to build an object file
 src/ImageManager.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AsciiAdventure.dir/build.make CMakeFiles/AsciiAdventure.dir/src/ImageManager.o
 .PHONY : src/ImageManager.o
@@ -183,6 +213,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... AsciiAdventure"
+	@echo "... src/ImageLoaderManager.o"
+	@echo "... src/ImageLoaderManager.i"
+	@echo "... src/ImageLoaderManager.s"
+	@echo "... src/ImageLoaderManagerFactory.o"
+	@echo "... src/ImageLoaderManagerFactory.i"
+	@echo "... src/ImageLoaderManagerFactory.s"
 	@echo "... src/ImageManager.o"
 	@echo "... src/ImageManager.i"
 	@echo "... src/ImageManager.s"

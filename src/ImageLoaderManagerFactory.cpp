@@ -6,7 +6,7 @@ AbstractImageLoaderManager* ImageLoaderManagerFactory::createImageLoaderManager(
 }
 
 AbstractImageLoaderManager* ImageLoaderManagerFactory::createImageLoaderManagerWithParams(SDL_Texture* image, 
-                                                            std::string filePath)
+                                                            std::string folderPath)
 {
-    return new ImageLoaderManager(image, filePath);
+    return new ImageLoaderManager(image, folderPath);
 }

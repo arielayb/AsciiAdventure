@@ -99,13 +99,24 @@ bool Main::mainLoop(){
     // image loader manager 
     imgLoadFac = new ImageLoaderManagerFactory();
     imgLoadMgr = imgLoadFac->createImageLoaderManager();
-    imgLoadMgr->setImagesFromFile(image, "images/DawnLike/Characters/Player1.json");
+    imgLoadMgr->setImagesFromFile(image, "images/DawnLike/jsonImageFiles");
 
     //  give the font color
 	SDL_Color fontColor = { 255, 255, 255 };
 
-    std::string opt = "Select your option:";
+    std::unordered_map<std::string, SDL_Rect> files = imgLoadMgr->getImagesFromFile(files);
+
+    std::unordered_map<std::string, SDL_Rect>::const_iterator got = files.find("images/DawnLike/Characters/Player0.png");
+    std::string file = "";
+    if ( got == files.end() ){
+        std::cout << "not found";
+    }else{
+        file = got->first;
+    }
+
 	SDL_Texture *titleTxt = imgMgr->loadFont(title, fontTypes, fontColor, renderer);
+	SDL_Texture *img = imgMgr->loadTexture(file, img, renderer);
+
 
     while(!quit){
         //clear the rendering so that we can re-render/update the screen
@@ -113,6 +124,8 @@ bool Main::mainLoop(){
         
         //render the text of choices
         imgMgr->renderTexture(400, 400, titleTxt, renderer, NULL);
+        imgMgr->renderTexture(400, 400, img, renderer, NULL);
+
 
         while(SDL_PollEvent(&events)){
             //user game menu options below

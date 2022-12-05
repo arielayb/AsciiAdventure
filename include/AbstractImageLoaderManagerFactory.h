@@ -7,7 +7,7 @@ class AbstractImageLoaderManagerFactory {
     public:
         virtual AbstractImageLoaderManager* createImageLoaderManager() = 0;
         virtual AbstractImageLoaderManager* createImageLoaderManagerWithParams(SDL_Texture* image, 
-                                                std::string filePath) = 0;
+                                                std::string folderPath) = 0;
 
 };
 

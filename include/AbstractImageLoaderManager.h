@@ -9,7 +9,7 @@ class AbstractImageLoaderManager {
     public:
         ~AbstractImageLoaderManager(){};
 
-        virtual void setImagesFromFile(SDL_Texture *image, std::string filePath) = 0;
+        virtual void setImagesFromFile(SDL_Texture *image, std::string folderPath) = 0;
 
         virtual std::unordered_map<std::string, SDL_Rect> getImagesFromFile(
                                                 std::unordered_map<std::string, SDL_Rect> playerImages) = 0; 

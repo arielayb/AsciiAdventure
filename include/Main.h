@@ -36,6 +36,9 @@ class Main{
 		//set camera 
 		SDL_Rect camera;
 
+		//set clipping for image
+		SDL_Rect clip;
+
 		//variable for rendering
 		//SDL_Renderer* _renderer;
 

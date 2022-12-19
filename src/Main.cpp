@@ -123,8 +123,10 @@ bool Main::mainLoop(){
         SDL_RenderClear(renderer);
         
         //render the text of choices
-        imgMgr->renderTexture(400, 400, titleTxt, renderer, NULL);
-        imgMgr->renderTexture(400, 400, img, renderer, NULL);
+        imgMgr->renderTexture(400, 400, titleTxt, renderer, clip);
+        
+        //render characters
+        imgMgr->renderTexture(400, 400, img, renderer, got->second);
 
 
         while(SDL_PollEvent(&events)){

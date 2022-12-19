@@ -89,7 +89,7 @@ SDL_Texture* ImageManager::loadFont(std::string text, TTF_Font* fontType, SDL_Co
 }
 
 //load the sprites on the screen
-bool ImageManager::renderTexture(float x, float y, SDL_Texture* image, SDL_Renderer* render, SDL_Rect* clip)
+bool ImageManager::renderTexture(float x, float y, SDL_Texture* image, SDL_Renderer* render, SDL_Rect clip)
 {
 	SDL_Rect renderQuad;
 
@@ -98,17 +98,17 @@ bool ImageManager::renderTexture(float x, float y, SDL_Texture* image, SDL_Rende
 
 	Uint32 pixelFormat;
 
-	if (clip != NULL)
+	if (image != NULL)
 	{
-		renderQuad.h = clip->h;
-		renderQuad.w = clip->w;
+		renderQuad.h = clip.h;
+		renderQuad.w = clip.w;
 	}
 	else
 	{
 		SDL_QueryTexture(image, &pixelFormat, NULL, &renderQuad.w, &renderQuad.h);
 	}
 
-	SDL_RenderCopy(render, image, clip, &renderQuad);
+	SDL_RenderCopy(render, image, &clip, &renderQuad);
 
 	return true;
 }

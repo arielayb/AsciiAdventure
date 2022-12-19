@@ -29,7 +29,7 @@ class ImageManager : public AbstractImageManager {
 		virtual SDL_Texture* loadFont(std::string time, TTF_Font* fontType, SDL_Color fontColor, SDL_Renderer* render);
 
 		//render image
-		virtual bool renderTexture(float x, float y, SDL_Texture* image = NULL, SDL_Renderer* render = NULL, SDL_Rect* clip = NULL);
+		virtual bool renderTexture(float x, float y, SDL_Texture* image, SDL_Renderer* render, SDL_Rect clip);
 
 	private:
 		SDL_Texture* _image;

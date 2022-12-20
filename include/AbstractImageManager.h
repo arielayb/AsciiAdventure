@@ -13,6 +13,8 @@ class AbstractImageManager{
     virtual SDL_Texture* loadFont(std::string time, TTF_Font* fontType, SDL_Color fontColor, SDL_Renderer* render) = 0;
     //render image
     virtual bool renderTexture(float x, float y, SDL_Texture* image, SDL_Renderer* render, SDL_Rect clip) = 0;
+    //render text
+    virtual bool renderText(float x, float y, SDL_Texture* image, SDL_Renderer* render, SDL_Rect* clip = nullptr) = 0;
 };
 
 #endif

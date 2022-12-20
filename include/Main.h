@@ -20,6 +20,7 @@ class Main{
         ~Main();
 
         bool mainLoop();
+		void loadFile();
 
         //variables for the window
 		SDL_Window* window = NULL;
@@ -59,7 +60,8 @@ class Main{
     private:
         
 		SDL_Texture* msgImage_ = NULL;
-		bool startTitle;
+		bool startTitle_;
+		std::vector<SDL_Rect> clipList_;
 };
 
 #endif

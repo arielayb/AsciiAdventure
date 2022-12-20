@@ -16,12 +16,14 @@ class ImageLoaderManager : public AbstractImageLoaderManager {
 
         virtual std::unordered_map<std::string, SDL_Rect> getImagesFromFile(
                                                 std::unordered_map<std::string, SDL_Rect> playerImages);
-
+        virtual std::vector<SDL_Rect> getClipList(); 
+        virtual void setClipList(std::vector<SDL_Rect> imageClips);
     private:
         SDL_Texture* image_;
         std::string folderPath_;
         std::unordered_map<std::string, SDL_Rect> playerImages_;
         std::vector<std::string> imageLists_;
+        std::vector<SDL_Rect> clipLists_;
 };
 
 #endif

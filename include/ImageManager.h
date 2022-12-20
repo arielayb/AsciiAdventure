@@ -30,6 +30,9 @@ class ImageManager : public AbstractImageManager {
 
 		//render image
 		virtual bool renderTexture(float x, float y, SDL_Texture* image, SDL_Renderer* render, SDL_Rect clip);
+		
+		//render text
+		virtual bool renderText(float x, float y, SDL_Texture* image, SDL_Renderer* render, SDL_Rect* clip = nullptr);
 
 	private:
 		SDL_Texture* _image;

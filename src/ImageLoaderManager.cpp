@@ -14,6 +14,7 @@ ImageLoaderManager::ImageLoaderManager(SDL_Texture* image, std::string folderPat
 
 void ImageLoaderManager::setImagesFromFile(SDL_Texture *image, std::string folderPath)
 {
+    SDL_Rect clip;
     for (const auto & entry : std::filesystem::directory_iterator(folderPath)){
         //std::cout << entry.path() << std::endl;
     
@@ -28,12 +29,13 @@ void ImageLoaderManager::setImagesFromFile(SDL_Texture *image, std::string folde
             std::cout << "name:" << name << std::endl;
 
             std::cout << data["meta"]["slices"][i]["keys"][0]["bounds"] << std::endl;
-            std::cout << data["meta"]["slices"][i]["keys"][0]["bounds"]["h"] << std::endl;
 
             playerImages_[name].x = data["meta"]["slices"][i]["keys"][0]["bounds"]["x"]; 
             playerImages_[name].y = data["meta"]["slices"][i]["keys"][0]["bounds"]["y"]; 
             playerImages_[name].w = data["meta"]["slices"][i]["keys"][0]["bounds"]["w"]; 
-            playerImages_[name].h = data["meta"]["slices"][i]["keys"][0]["bounds"]["h"]; 
+            playerImages_[name].h = data["meta"]["slices"][i]["keys"][0]["bounds"]["h"];
+
+            clipLists_.push_back(playerImages_[name]); 
         }   
     }
 }
@@ -43,3 +45,11 @@ std::unordered_map<std::string, SDL_Rect> ImageLoaderManager::getImagesFromFile(
     playerImages = playerImages_;
     return playerImages;
 }
+
+std::vector<SDL_Rect> ImageLoaderManager::getClipList(){
+    return clipLists_;
+} 
+    
+void ImageLoaderManager::setClipList(std::vector<SDL_Rect> imageClips){
+    clipLists_ = imageClips;
+} 

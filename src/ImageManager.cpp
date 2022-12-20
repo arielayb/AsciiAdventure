@@ -97,7 +97,7 @@ bool ImageManager::renderTexture(float x, float y, SDL_Texture* image, SDL_Rende
 	renderQuad.y = y;
 
 	Uint32 pixelFormat;
-
+	
 	if (image != NULL)
 	{
 		renderQuad.h = clip.h;
@@ -109,6 +109,31 @@ bool ImageManager::renderTexture(float x, float y, SDL_Texture* image, SDL_Rende
 	}
 
 	SDL_RenderCopy(render, image, &clip, &renderQuad);
+
+	return true;
+}
+
+//load the text on the screen
+bool ImageManager::renderText(float x, float y, SDL_Texture* image, SDL_Renderer* render, SDL_Rect* clip)
+{
+	SDL_Rect renderQuad;
+
+	renderQuad.x = x;
+	renderQuad.y = y;
+
+	Uint32 pixelFormat;
+	
+	if (clip != NULL)
+	{
+		renderQuad.h = clip->h;
+		renderQuad.w = clip->w;
+	}
+	else
+	{
+		SDL_QueryTexture(image, &pixelFormat, NULL, &renderQuad.w, &renderQuad.h);
+	}
+
+	SDL_RenderCopy(render, image, clip, &renderQuad);
 
 	return true;
 }

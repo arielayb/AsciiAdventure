@@ -1,6 +1,7 @@
 #include <SDL2/SDL_image.h>
 #include <unordered_map>
 #include <string>
+#include <vector>
 
 #ifndef _ABSTRACTIMAGELOADERMANAGER_H
 #define _ABSTRACTIMAGELOADERMANAGER_H
@@ -12,7 +13,9 @@ class AbstractImageLoaderManager {
         virtual void setImagesFromFile(SDL_Texture *image, std::string folderPath) = 0;
 
         virtual std::unordered_map<std::string, SDL_Rect> getImagesFromFile(
-                                                std::unordered_map<std::string, SDL_Rect> playerImages) = 0; 
+                                                std::unordered_map<std::string, SDL_Rect> playerImages) = 0;
+        virtual std::vector<SDL_Rect> getClipList() = 0; 
+        virtual void setClipList(std::vector<SDL_Rect> imageClips) = 0; 
 };
 
 #endif

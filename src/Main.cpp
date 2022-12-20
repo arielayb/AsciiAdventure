@@ -26,7 +26,7 @@ bool Main::mainLoop(){
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
     bool quit = false;
-    startTitle = true;
+    startTitle_ = true;
 
 //  to count the frame rate
 	//Timer fps;
@@ -57,7 +57,7 @@ bool Main::mainLoop(){
         SDL_WINDOWPOS_UNDEFINED,           // initial y position
         1200,                               // width, in pixels
         920,                               // height, in pixels
-        SDL_WINDOW_OPENGL                  // flags - see below
+        SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP // flags - see below
     );
 
     // Check that the window was successfully created
@@ -114,25 +114,29 @@ bool Main::mainLoop(){
         file = got->first;
     }
 
+    clipList_ = imgLoadMgr->getClipList();
+
+    //set title text
 	SDL_Texture *titleTxt = imgMgr->loadFont(title, fontTypes, fontColor, renderer);
-	SDL_Texture *img = imgMgr->loadTexture(file, img, renderer);
+	
+    //load the images from the file
+    SDL_Texture *img = imgMgr->loadTexture(file, img, renderer);
 
-
+    // main loop for game engine
     while(!quit){
         //clear the rendering so that we can re-render/update the screen
         SDL_RenderClear(renderer);
         
         //render the text of choices
-        imgMgr->renderTexture(400, 400, titleTxt, renderer, clip);
+        imgMgr->renderText(800, 500, titleTxt, renderer, nullptr);
         
-        //render characters
-        imgMgr->renderTexture(400, 400, img, renderer, got->second);
-
+        //render characters from list
+        imgMgr->renderTexture(400, 400, img, renderer, clipList_[1]);
 
         while(SDL_PollEvent(&events)){
             //user game menu options below
             //user can quit the game on ESC key
-            if(startTitle){
+            if(startTitle_){
                 if (events.type == SDL_QUIT || events.key.keysym.sym == SDLK_ESCAPE)
                 {
                     quit = true;
@@ -203,6 +207,9 @@ bool Main::mainLoop(){
     return quit;
 }
 
+void Main::loadFile(){
+
+}
 
 int main(){
 

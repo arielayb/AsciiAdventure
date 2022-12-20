@@ -87,6 +87,9 @@ bool Main::mainLoop(){
     TTF_Font* fontTypes = TTF_OpenFont("images/UbuntuMono-B.ttf", 50);
 
     std::string title = "Iron Age Stories";
+    std::string startText = "New Game";
+    std::string contText = "Continue";
+    std::string exitText = "Exit Game";
 
     std::string input;
 
@@ -118,6 +121,9 @@ bool Main::mainLoop(){
 
     //set title text
 	SDL_Texture *titleTxt = imgMgr->loadFont(title, fontTypes, fontColor, renderer);
+	SDL_Texture *startGameTxt = imgMgr->loadFont(startText, fontTypes, fontColor, renderer);
+	SDL_Texture *continueTxt = imgMgr->loadFont(contText, fontTypes, fontColor, renderer);
+	SDL_Texture *exitGameTxt = imgMgr->loadFont(exitText, fontTypes, fontColor, renderer);
 	
     //load the images from the file
     SDL_Texture *img = imgMgr->loadTexture(file, img, renderer);
@@ -128,10 +134,13 @@ bool Main::mainLoop(){
         SDL_RenderClear(renderer);
         
         //render the text of choices
-        imgMgr->renderText(800, 500, titleTxt, renderer, nullptr);
+        imgMgr->renderText(735, 400, titleTxt, renderer, nullptr);
+        imgMgr->renderText(800, 500, startGameTxt, renderer, nullptr);
+        imgMgr->renderText(800, 555, continueTxt, renderer, nullptr);
+        imgMgr->renderText(800, 610, exitGameTxt, renderer, nullptr);
         
         //render characters from list
-        imgMgr->renderTexture(400, 400, img, renderer, clipList_[1]);
+        //imgMgr->renderTexture(400, 400, img, renderer, clipList_[1]);
 
         while(SDL_PollEvent(&events)){
             //user game menu options below
@@ -215,8 +224,8 @@ int main(){
 
     Main* main = new Main();
 
-    std::thread worldThread(&Main::mainLoop, main);
-	worldThread.join();
+    std::thread mainMenu(&Main::mainLoop, main);
+	mainMenu.join();
 
 	//  start the main thread to draw the levels and events
 	//launch.mainLoop();

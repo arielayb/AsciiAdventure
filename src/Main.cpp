@@ -98,26 +98,33 @@ bool Main::mainLoop(){
     imgFac = new ImageManagerFactory();
     imgMgr = imgFac->createImageManagerWithParams(image, renderer);
 
-    //load image file
+    // load image file
+    // set the image folders
     // image loader manager 
     imgLoadFac = new ImageLoaderManagerFactory();
     imgLoadMgr = imgLoadFac->createImageLoaderManager();
-    imgLoadMgr->setImagesFromFile(image, "images/DawnLike/jsonImageFiles");
+    imgLoadMgr->setImagesFromFile("images/DawnLike/jsonImageFiles");
 
     //  give the font color
 	SDL_Color fontColor = { 255, 255, 255 };
 
     std::unordered_map<std::string, SDL_Rect> files = imgLoadMgr->getImagesFromFile(files);
 
-    std::unordered_map<std::string, SDL_Rect>::const_iterator got = files.find("images/DawnLike/Characters/Player0.png");
+    // std::unordered_map<std::string, SDL_Rect>::const_iterator got = files.find("images/DawnLike/Characters/Player0.png");
+    std::unordered_map<std::string, SDL_Rect>::const_iterator got = files.find("images/DawnLike/GUI/GUI0.png_97");
     std::string file = "";
+    SDL_Rect clip;
     if ( got == files.end() ){
-        std::cout << "not found";
+       std::cout << "not found" << std::endl;
     }else{
         file = got->first;
+        std::cout << "filename: " << file << std::endl; 
+        clip = got->second;
+        std::cout << "clip: " << clip.x << std::endl;
+
     }
 
-    clipList_ = imgLoadMgr->getClipList();
+    // clipList_ = imgLoadMgr->getClipList();
 
     //set title text
 	SDL_Texture *titleTxt = imgMgr->loadFont(title, fontTypes, fontColor, renderer);
@@ -128,11 +135,17 @@ bool Main::mainLoop(){
     //load the images from the file
     SDL_Texture *img = imgMgr->loadTexture(file, img, renderer);
 
+    // set or capture sprite arrow position
+    int x = 0;
+    int y = 0;
+
     // main loop for game engine
     while(!quit){
         //clear the rendering so that we can re-render/update the screen
         SDL_RenderClear(renderer);
         
+        imgMgr->renderTexture(780, 500, img, renderer, clip);
+
         //render the text of choices
         imgMgr->renderText(735, 400, titleTxt, renderer, nullptr);
         imgMgr->renderText(800, 500, startGameTxt, renderer, nullptr);
@@ -140,7 +153,7 @@ bool Main::mainLoop(){
         imgMgr->renderText(800, 610, exitGameTxt, renderer, nullptr);
         
         //render characters from list
-        //imgMgr->renderTexture(400, 400, img, renderer, clipList_[1]);
+        // imgMgr->renderTexture(780, 500, img, renderer, clipList_[91]);
 
         while(SDL_PollEvent(&events)){
             //user game menu options below
@@ -151,19 +164,48 @@ bool Main::mainLoop(){
                     quit = true;
                 }
             }
-        }
-        
-        //SDL_Delay(3000);  // Pause execution for 3000 milliseconds, for example
-        if(input == "start" || input == "s"){
 
-        }else if(input == "load" || input == "l"){
+            if (events.key.keysym.sym == SDL_KEYDOWN){
 
-        }else if(input == "quit" || input == "q"){
-            // Close and destroy the window
-            SDL_DestroyWindow(window);
-            SDL_Quit();
-            quit = true;
-            return quit;
+                if (events.key.keysym.sym == SDLK_UP || events.key.keysym.sym == SDLK_w)
+                {
+                    // Mix_PlayChannel(-1, choice, 0);
+                    x = 700;
+                    y = 500;
+                    imgMgr->renderTexture(x, y, img, renderer, clip);
+                }
+                else if (events.key.keysym.sym == SDLK_DOWN || events.key.keysym.sym == SDLK_s)
+                {
+                    x = 700;
+                    y = 555;
+                    // Mix_PlayChannel(-1, choice, 0);
+                    imgMgr->renderTexture(x, y, img, renderer, clip);
+                }
+                else if (events.key.keysym.sym == SDLK_RETURN)
+                {
+                    if (x == 700 && y == 500)
+                    {
+                        // Mix_PlayChannel(-1, success, 0);
+                        
+                        // menu = false;
+                        //start = true;
+                                                        
+                        SDL_DestroyTexture(titleTxt);
+                        SDL_DestroyTexture(startGameTxt);
+                        SDL_DestroyTexture(continueTxt);
+                    
+                        //Stop the music 
+                        //Mix_HaltMusic();
+                    }
+                    else if (x == 700 && y == 610)
+                    {
+                        //Stop the music 
+                        //Mix_HaltMusic();
+                        
+                        quit = true;
+                    }
+                }
+            }
         }
 
         //update the screen

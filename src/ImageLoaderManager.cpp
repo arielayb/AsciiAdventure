@@ -11,7 +11,6 @@ ImageLoaderManager::ImageLoaderManager(SDL_Texture* image, std::string folderPat
     folderPath_ = folderPath;
 }
 
-
 void ImageLoaderManager::setImagesFromFile(std::string folderPath)
 {
     for (const auto & entry : std::filesystem::directory_iterator(folderPath)){    
@@ -31,63 +30,30 @@ void ImageLoaderManager::setImagesFromFile(std::string folderPath)
         jsonFiles_.insert(iter, entry.path());
     }
 
-    // std::unordered_map<std::string, int>::const_iterator iter = fileImages_.begin(); 
-    // for(std::pair<std::string, int> pair : fileImages_){
-    // for(iter; iter != fileImages_.end(); iter++){    
-
     std::unordered_map<std::string, int>::const_iterator iter = fileImages_.begin(); 
     int jsonFilesize = jsonFiles_.size();
     int k = 0;
     //int size = fileImages_.size();
     for (iter; iter != fileImages_.end(); iter++){
         std::cout << "iter: " << iter->second << std::endl;   
+        for(int j = 0; j < iter->second; j++){
+            std::ifstream jsonFile(jsonFiles_[k]);
+            json data = json::parse(jsonFile);
+            
+            std::string name = data["meta"]["slices"][j]["name"];
+            std::cout << "name:" << name << std::endl;
 
-        //std::unordered_map<std::string, int>::const_iterator got = fileImages_.find(iter->first);
-        //if ( got == fileImages_.end() ){
-        //   std::cout << "json file not found";
-        //}else{
-            for(int j = 0; j < iter->second; j++){
-                std::ifstream jsonFile(jsonFiles_[k]);
-                json data = json::parse(jsonFile);
-                
-                std::string name = data["meta"]["slices"][j]["name"];
-                std::cout << "name:" << name << std::endl;
+            std::cout << data["meta"]["slices"][j]["keys"][0]["bounds"] << std::endl;
 
-                std::cout << data["meta"]["slices"][j]["keys"][0]["bounds"] << std::endl;
+            playerClipImages_[name].x = data["meta"]["slices"][j]["keys"][0]["bounds"]["x"]; 
+            playerClipImages_[name].y = data["meta"]["slices"][j]["keys"][0]["bounds"]["y"]; 
+            playerClipImages_[name].w = data["meta"]["slices"][j]["keys"][0]["bounds"]["w"]; 
+            playerClipImages_[name].h = data["meta"]["slices"][j]["keys"][0]["bounds"]["h"];
 
-                playerClipImages_[name].x = data["meta"]["slices"][j]["keys"][0]["bounds"]["x"]; 
-                playerClipImages_[name].y = data["meta"]["slices"][j]["keys"][0]["bounds"]["y"]; 
-                playerClipImages_[name].w = data["meta"]["slices"][j]["keys"][0]["bounds"]["w"]; 
-                playerClipImages_[name].h = data["meta"]["slices"][j]["keys"][0]["bounds"]["h"];
-
-                clipLists_.push_back(playerClipImages_[name]); 
-            }
-            k+=1;
-       // }
+            clipLists_.push_back(playerClipImages_[name]); 
+        }
+        k+=1;
     }
-
-    // for (const auto & entry : std::filesystem::directory_iterator(folderPath)){
-    //     std::ifstream jsonFile(entry.path());
-    //     json data = json::parse(jsonFile);
-
-            
-    // }
-    
-        // for(int i = 0; i < size; i++){
-        //     std::string name =  data["meta"]["slices"][i]["name"];
-        //     std::cout << "name:" << name << std::endl;
-
-        //     std::cout << data["meta"]["slices"][i]["keys"][0]["bounds"] << std::endl;
-
-        //     playerImages_[name].x = data["meta"]["slices"][i]["keys"][0]["bounds"]["x"]; 
-        //     playerImages_[name].y = data["meta"]["slices"][i]["keys"][0]["bounds"]["y"]; 
-        //     playerImages_[name].w = data["meta"]["slices"][i]["keys"][0]["bounds"]["w"]; 
-        //     playerImages_[name].h = data["meta"]["slices"][i]["keys"][0]["bounds"]["h"];
-
-        //     clipLists_.push_back(playerImages_[name]); 
-            
-        // }
-    //}
 }
 
 std::unordered_map<std::string, int> ImageLoaderManager::getImagesFromFile(

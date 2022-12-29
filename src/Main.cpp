@@ -108,20 +108,27 @@ bool Main::mainLoop(){
     //  give the font color
 	SDL_Color fontColor = { 255, 255, 255 };
 
-    std::unordered_map<std::string, SDL_Rect> files = imgLoadMgr->getImagesFromFile(files);
+    std::unordered_map<std::string, SDL_Rect> imgClips = imgLoadMgr->getPlayerClipImages(imgClips);
+    std::unordered_map<std::string, int> files = imgLoadMgr->getImagesFromFile(files);
 
-    // std::unordered_map<std::string, SDL_Rect>::const_iterator got = files.find("images/DawnLike/Characters/Player0.png");
-    std::unordered_map<std::string, SDL_Rect>::const_iterator got = files.find("images/DawnLike/GUI/GUI0.png_97");
+    std::unordered_map<std::string, int>::const_iterator  imageFileIter = files.find("images/DawnLike/GUI/GUI0.png");
+    std::unordered_map<std::string, SDL_Rect>::const_iterator iterClips = imgClips.find("images/DawnLike/GUI/GUI0.png_97");
+
     std::string file = "";
-    SDL_Rect clip;
-    if ( got == files.end() ){
+    //SDL_Rect clip;
+    if ( imageFileIter == files.end() ){
        std::cout << "not found" << std::endl;
     }else{
-        file = got->first;
+        file = imageFileIter->first;
         std::cout << "filename: " << file << std::endl; 
-        clip = got->second;
-        std::cout << "clip: " << clip.x << std::endl;
+    }
 
+    SDL_Rect clip;
+    if ( iterClips == imgClips.end() ){
+       std::cout << "not found" << std::endl;
+    }else{
+        clip = iterClips->second;
+        std::cout << "clip: " << clip.x << std::endl; 
     }
 
     // clipList_ = imgLoadMgr->getClipList();

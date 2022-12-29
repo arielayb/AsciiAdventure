@@ -55,12 +55,12 @@ void ImageLoaderManager::setImagesFromFile(std::string folderPath)
 
                 std::cout << data["meta"]["slices"][j]["keys"][0]["bounds"] << std::endl;
 
-                playerImages_[name].x = data["meta"]["slices"][j]["keys"][0]["bounds"]["x"]; 
-                playerImages_[name].y = data["meta"]["slices"][j]["keys"][0]["bounds"]["y"]; 
-                playerImages_[name].w = data["meta"]["slices"][j]["keys"][0]["bounds"]["w"]; 
-                playerImages_[name].h = data["meta"]["slices"][j]["keys"][0]["bounds"]["h"];
+                playerClipImages_[name].x = data["meta"]["slices"][j]["keys"][0]["bounds"]["x"]; 
+                playerClipImages_[name].y = data["meta"]["slices"][j]["keys"][0]["bounds"]["y"]; 
+                playerClipImages_[name].w = data["meta"]["slices"][j]["keys"][0]["bounds"]["w"]; 
+                playerClipImages_[name].h = data["meta"]["slices"][j]["keys"][0]["bounds"]["h"];
 
-                clipLists_.push_back(playerImages_[name]); 
+                clipLists_.push_back(playerClipImages_[name]); 
             }
             k+=1;
        // }
@@ -90,10 +90,16 @@ void ImageLoaderManager::setImagesFromFile(std::string folderPath)
     //}
 }
 
-std::unordered_map<std::string, SDL_Rect> ImageLoaderManager::getImagesFromFile(
-                                                std::unordered_map<std::string, SDL_Rect> playerImages){
-    playerImages = playerImages_;
+std::unordered_map<std::string, int> ImageLoaderManager::getImagesFromFile(
+                                                std::unordered_map<std::string, int> playerImages){
+    playerImages = fileImages_;
     return playerImages;
+}
+
+std::unordered_map<std::string, SDL_Rect> ImageLoaderManager::getPlayerClipImages(
+                                                std::unordered_map<std::string, SDL_Rect> playerClipImages){
+    playerClipImages = playerClipImages_;
+    return playerClipImages;
 }
 
 std::vector<SDL_Rect> ImageLoaderManager::getClipList(){

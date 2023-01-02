@@ -132,9 +132,7 @@ bool Main::mainLoop(){
         std::cout << "clip: " << clip.x << std::endl; 
     }
     // TODO end.
-
-    // clipList_ = imgLoadMgr->getClipList();
-
+    
     //set title text
 	SDL_Texture *titleTxt = imgMgr->loadFont(title, fontTypes, fontColor, renderer);
 	SDL_Texture *startGameTxt = imgMgr->loadFont(startText, fontTypes, fontColor, renderer);
@@ -151,15 +149,13 @@ bool Main::mainLoop(){
     bool contGame = false;
     bool contGameSelect = false;
     bool exit = false;
+
     // main loop for game engine
     while(!quit){
         //clear the rendering so that we can re-render/update the screen
         // SDL_RenderClear(renderer);
         
         // imgMgr->renderTexture(880, 500, img, renderer, clip);
-
-        //render characters from list
-        // imgMgr->renderTexture(780, 500, img, renderer, clipList_[91]);
 
         while(SDL_PollEvent(&events)){
             if (events.type == SDL_QUIT || events.key.keysym.sym == SDLK_ESCAPE)

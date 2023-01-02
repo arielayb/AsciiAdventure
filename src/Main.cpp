@@ -149,6 +149,7 @@ bool Main::mainLoop(){
     int y = 500;
     bool newGame = false;
     bool contGame = false;
+    bool contGameSelect = false;
     bool exit = false;
     // main loop for game engine
     while(!quit){
@@ -179,6 +180,7 @@ bool Main::mainLoop(){
                             y = 500;
                             imgMgr->renderTexture(x, y, img, renderer, clip);
                             contGame = false;
+                            contGameSelect = false;
                             exit = true;
                             newGame = false;
                         }
@@ -189,16 +191,18 @@ bool Main::mainLoop(){
                             y = 555;
                             imgMgr->renderTexture(x, y, img, renderer, clip);
                             contGame = true;
+                            contGameSelect = false;
                             exit = false;
                             newGame = false;
                         }
-                        else if (events.key.keysym.sym == SDLK_DOWN && contGame == false)
+                        else if (events.key.keysym.sym == SDLK_DOWN && contGameSelect == false)
                         {
                             x = 880;
                             y = 555;
                             // Mix_PlayChannel(-1, choice, 0);
                             imgMgr->renderTexture(x, y, img, renderer, clip);
                             contGame = true;
+                            contGameSelect = true;
                             newGame = false;
                             exit = false;
                         }
@@ -209,6 +213,7 @@ bool Main::mainLoop(){
                             imgMgr->renderTexture(x, y, img, renderer, clip);
                             exit = false;
                             contGame = false;
+                            contGameSelect = true;
                             newGame = true;
                         }else if (events.key.keysym.sym == SDLK_RETURN){
                             if (x == 880 && y == 500)

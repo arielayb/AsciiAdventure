@@ -108,31 +108,6 @@ bool Main::mainLoop(){
     //  give the font color
 	SDL_Color fontColor = { 255, 255, 255 };
 
-    //TODO start: add helper functions for this process:
-    std::unordered_map<std::string, SDL_Rect> imgClips = imgLoadMgr->getPlayerClipImages(imgClips);
-    std::unordered_map<std::string, int> files = imgLoadMgr->getImagesFromFile(files);
-
-    std::unordered_map<std::string, int>::const_iterator  imageFileIter = files.find("images/DawnLike/GUI/GUI0.png");
-    std::unordered_map<std::string, SDL_Rect>::const_iterator iterClips = imgClips.find("images/DawnLike/GUI/GUI0.png_97");
-
-    std::string file = "";
-    //SDL_Rect clip;
-    if ( imageFileIter == files.end() ){
-       std::cout << "not found" << std::endl;
-    }else{
-        file = imageFileIter->first;
-        std::cout << "filename: " << file << std::endl; 
-    }
-
-    SDL_Rect clip;
-    if ( iterClips == imgClips.end() ){
-       std::cout << "not found" << std::endl;
-    }else{
-        clip = iterClips->second;
-        std::cout << "clip: " << clip.x << std::endl; 
-    }
-    // TODO end.
-    
     //set title text
 	SDL_Texture *titleTxt = imgMgr->loadFont(title, fontTypes, fontColor, renderer);
 	SDL_Texture *startGameTxt = imgMgr->loadFont(startText, fontTypes, fontColor, renderer);
@@ -140,7 +115,9 @@ bool Main::mainLoop(){
 	SDL_Texture *exitGameTxt = imgMgr->loadFont(exitText, fontTypes, fontColor, renderer);
 	
     //load the images from the file
+    std::string file = getImageFile(); // get image file path
     SDL_Texture *img = imgMgr->loadTexture(file, img, renderer);
+    SDL_Rect clip = getClipImage(); // get sdl rect clip image
 
     // set or capture sprite arrow position
     int x = 880;
@@ -150,7 +127,7 @@ bool Main::mainLoop(){
     bool contGameSelect = false;
     bool exit = false;
 
-    // main loop for game engine
+    // main loop for main menu title
     while(!quit){
         //clear the rendering so that we can re-render/update the screen
         // SDL_RenderClear(renderer);
@@ -298,13 +275,35 @@ bool Main::mainLoop(){
     // Clean up
     SDL_Quit();
 
-    
-
     return quit;
 }
 
-void Main::loadFile(){
+std::string Main::getImageFile(){
 
+    files = imgLoadMgr->getImagesFromFile(files);
+    imageFileIter = files.find("images/DawnLike/GUI/GUI0.png");
+
+    //SDL_Rect clip;
+    if ( imageFileIter == files.end() ){
+       std::cout << "not found" << std::endl;
+    }else{
+        file_ = imageFileIter->first;
+        std::cout << "filename: " << file_ << std::endl; 
+    }
+
+    return file_;
+}
+
+SDL_Rect Main::getClipImage(){
+    imgClips = imgLoadMgr->getPlayerClipImages(imgClips);
+    iterClips = imgClips.find("images/DawnLike/GUI/GUI0.png_97");
+    if ( iterClips == imgClips.end() ){
+       std::cout << "not found" << std::endl;
+    }else{
+        clip_ = iterClips->second;
+    }
+
+    return clip_;
 }
 
 int main(){

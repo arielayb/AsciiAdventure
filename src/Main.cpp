@@ -147,7 +147,9 @@ bool Main::mainLoop(){
     // set or capture sprite arrow position
     int x = 880;
     int y = 500;
-
+    bool newGame = false;
+    bool contGame = false;
+    bool exit = false;
     // main loop for game engine
     while(!quit){
         //clear the rendering so that we can re-render/update the screen
@@ -155,12 +157,6 @@ bool Main::mainLoop(){
         
         // imgMgr->renderTexture(880, 500, img, renderer, clip);
 
-        // //render the text of choices
-        // imgMgr->renderText(870, 400, titleTxt, renderer, nullptr);
-        // imgMgr->renderText(900, 500, startGameTxt, renderer, nullptr);
-        // imgMgr->renderText(900, 555, continueTxt, renderer, nullptr);
-        // imgMgr->renderText(900, 610, exitGameTxt, renderer, nullptr);
-        
         //render characters from list
         // imgMgr->renderTexture(780, 500, img, renderer, clipList_[91]);
 
@@ -176,30 +172,45 @@ bool Main::mainLoop(){
 				{	
 					if (events.type == SDL_KEYDOWN){
 
-                        if (events.key.keysym.sym == SDLK_UP)
+                        if (events.key.keysym.sym == SDLK_UP && newGame == false)
                         {
                             // Mix_PlayChannel(-1, choice, 0);
                             x = 880;
                             y = 500;
                             imgMgr->renderTexture(x, y, img, renderer, clip);
+                            contGame = false;
+                            exit = true;
+                            newGame = false;
                         }
-                        else if (events.key.keysym.sym == SDLK_DOWN)
+                        else if (events.key.keysym.sym == SDLK_UP && contGame == false)
+                        {
+                            // Mix_PlayChannel(-1, choice, 0);
+                            x = 880;
+                            y = 555;
+                            imgMgr->renderTexture(x, y, img, renderer, clip);
+                            contGame = true;
+                            exit = false;
+                            newGame = false;
+                        }
+                        else if (events.key.keysym.sym == SDLK_DOWN && contGame == false)
                         {
                             x = 880;
                             y = 555;
                             // Mix_PlayChannel(-1, choice, 0);
                             imgMgr->renderTexture(x, y, img, renderer, clip);
-                        }else if(events.key.keysym.sym == SDLK_DOWN){
-                            x = 880;
-                            y = 600;
-                            imgMgr->renderTexture(x, y, img, renderer, clip);
-                        }else if(events.key.keysym.sym == SDLK_DOWN){
-                            x = 880;
-                            y = 700;
-                            imgMgr->renderTexture(x, y, img, renderer, clip);
+                            contGame = true;
+                            newGame = false;
+                            exit = false;
                         }
-                        else if (events.key.keysym.sym == SDLK_RETURN)
+                        else if(events.key.keysym.sym == SDLK_DOWN && exit == false)
                         {
+                            x = 880;
+                            y = 610;
+                            imgMgr->renderTexture(x, y, img, renderer, clip);
+                            exit = false;
+                            contGame = false;
+                            newGame = true;
+                        }else if (events.key.keysym.sym == SDLK_RETURN){
                             if (x == 880 && y == 500)
                             {
                                 // Mix_PlayChannel(-1, success, 0);
@@ -243,9 +254,6 @@ bool Main::mainLoop(){
             //update the screen
             SDL_RenderPresent(renderer);
         }
-
-        //update the screen
-        // SDL_RenderPresent(renderer);
     }
 
     //  Deallocate surface

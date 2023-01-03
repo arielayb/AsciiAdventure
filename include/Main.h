@@ -32,10 +32,11 @@ class Main{
         //  ceate player handler event
 	    SDL_Event events;
 
-		std::unordered_map<std::string, SDL_Rect> imgClips;
-    	std::unordered_map<std::string, SDL_Rect>::const_iterator iterClips;
-		std::unordered_map<std::string, int> files;
-		std::unordered_map<std::string, int>::const_iterator imageFileIter;
+		std::unordered_map<std::string, SDL_Rect> imgClips; //container for sdl rect images.
+		std::unordered_map<std::string, int> files; // container for image files.
+
+    	std::unordered_map<std::string, SDL_Rect>::const_iterator iterClips; //iterator for sdl rect container.
+		std::unordered_map<std::string, int>::const_iterator imageFileIter; //iterator for image file container.
 
         //these variables represent text for the fps and normal text displays.
 		SDL_Texture* textFont = NULL;

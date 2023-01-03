@@ -8,20 +8,27 @@ ImageManager::ImageManager()
 
 ImageManager::ImageManager(SDL_Texture* image, SDL_Renderer* render)
 {
-	_image = image;
-	_render = render;
+	image_ = image;
+	render_ = render;
 }
 
 ImageManager::~ImageManager()
 {
+	if(image_ != nullptr){
+		SDL_DestroyTexture(image_);
+	}
+
+	if(render_ != nullptr){
+		SDL_DestroyRenderer(render_);
+	}
 }
 
 //load the texture
 SDL_Texture* ImageManager::loadTexture(const std::string file, SDL_Texture *image, SDL_Renderer* render)
 {
 	
-	_image  = image;
-	_render = render;
+	image_  = image;
+	render_ = render;
 
 	//load the image file and set the parameters
 	SDL_Surface* loaded_surface = IMG_Load(file.c_str());

@@ -11,6 +11,12 @@ ImageLoaderManager::ImageLoaderManager(SDL_Texture* image, std::string folderPat
     folderPath_ = folderPath;
 }
 
+ImageLoaderManager::~ImageLoaderManager(){
+    if(image_ != nullptr){
+        SDL_DestroyTexture(image_);
+    }
+}
+
 void ImageLoaderManager::setImagesFromFile(std::string folderPath)
 {
     for (const auto & entry : std::filesystem::directory_iterator(folderPath)){    

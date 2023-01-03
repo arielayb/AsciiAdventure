@@ -115,9 +115,9 @@ bool Main::mainLoop(){
 	SDL_Texture *exitGameTxt = imgMgr->loadFont(exitText, fontTypes, fontColor, renderer);
 	
     //load the images from the file
-    std::string file = getImageFile(); // get image file path
+    std::string file = getImageFile("images/DawnLike/GUI/GUI0.png"); // get image file path
     SDL_Texture *img = imgMgr->loadTexture(file, img, renderer);
-    SDL_Rect clip = getClipImage(); // get sdl rect clip image
+    SDL_Rect clip = getClipImage("images/DawnLike/GUI/GUI0.png_97"); // get sdl rect clip image
 
     // set or capture sprite arrow position
     int x = 880;
@@ -278,10 +278,10 @@ bool Main::mainLoop(){
     return quit;
 }
 
-std::string Main::getImageFile(){
+std::string Main::getImageFile(std::string filePath){
 
     files = imgLoadMgr->getImagesFromFile(files);
-    imageFileIter = files.find("images/DawnLike/GUI/GUI0.png");
+    imageFileIter = files.find(filePath);
 
     //SDL_Rect clip;
     if ( imageFileIter == files.end() ){
@@ -294,9 +294,9 @@ std::string Main::getImageFile(){
     return file_;
 }
 
-SDL_Rect Main::getClipImage(){
+SDL_Rect Main::getClipImage(std::string imageClipPath){
     imgClips = imgLoadMgr->getPlayerClipImages(imgClips);
-    iterClips = imgClips.find("images/DawnLike/GUI/GUI0.png_97");
+    iterClips = imgClips.find(imageClipPath);
     if ( iterClips == imgClips.end() ){
        std::cout << "not found" << std::endl;
     }else{

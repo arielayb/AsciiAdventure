@@ -20,8 +20,8 @@ class Main{
         ~Main();
 
         bool mainLoop();
-		std::string getImageFile();
-		SDL_Rect getClipImage();
+		std::string getImageFile(std::string filePath);
+		SDL_Rect getClipImage(std::string imageClipPath);
 
         //variables for the window
 		SDL_Window* window = NULL;

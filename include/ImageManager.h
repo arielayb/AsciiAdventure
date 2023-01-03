@@ -35,8 +35,8 @@ class ImageManager : public AbstractImageManager {
 		virtual bool renderText(float x, float y, SDL_Texture* image, SDL_Renderer* render, SDL_Rect* clip = nullptr);
 
 	private:
-		SDL_Texture* _image;
-		SDL_Renderer* _render;
+		SDL_Texture* image_;
+		SDL_Renderer* render_;
 };
 
 #endif

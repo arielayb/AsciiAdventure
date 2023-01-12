@@ -20,7 +20,8 @@ class Main{
         ~Main();
 
         bool mainLoop();
-		void loadFile();
+		std::string getImageFile(std::string filePath);
+		SDL_Rect getClipImage(std::string imageClipPath);
 
         //variables for the window
 		SDL_Window* window = NULL;
@@ -30,18 +31,18 @@ class Main{
 
         //  ceate player handler event
 	    SDL_Event events;
-    
+
+		std::unordered_map<std::string, SDL_Rect> imgClips; //container for sdl rect images.
+		std::unordered_map<std::string, int> files; // container for image files.
+
+    	std::unordered_map<std::string, SDL_Rect>::const_iterator iterClips; //iterator for sdl rect container.
+		std::unordered_map<std::string, int>::const_iterator imageFileIter; //iterator for image file container.
+
         //these variables represent text for the fps and normal text displays.
 		SDL_Texture* textFont = NULL;
 		
 		//set camera 
 		SDL_Rect camera;
-
-		//set clipping for image
-		SDL_Rect clip;
-
-		//variable for rendering
-		//SDL_Renderer* _renderer;
 
 		//variable for font
 		TTF_Font* fontTypes = NULL;
@@ -62,6 +63,8 @@ class Main{
 		SDL_Texture* msgImage_ = NULL;
 		bool startTitle_;
 		std::vector<SDL_Rect> clipList_;
+		std::string file_;
+		SDL_Rect clip_;  		//set clipping for image
 };
 
 #endif

@@ -1,3 +1,0 @@
-/home/aaybar/Documents/AsciiAdventure/build/CMakeFiles/AsciiAdventure.dir
-/home/aaybar/Documents/AsciiAdventure/build/CMakeFiles/edit_cache.dir
-/home/aaybar/Documents/AsciiAdventure/build/CMakeFiles/rebuild_cache.dir

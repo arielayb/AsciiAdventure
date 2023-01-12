@@ -10,19 +10,23 @@ class ImageLoaderManager : public AbstractImageLoaderManager {
     public:
         ImageLoaderManager(){};
         ImageLoaderManager(SDL_Texture* image, std::string);
-        ~ImageLoaderManager(){};
+        ~ImageLoaderManager();
 
-        virtual void setImagesFromFile(SDL_Texture *image, std::string folderPath);
+        virtual void setImagesFromFile(std::string folderPath);
 
-        virtual std::unordered_map<std::string, SDL_Rect> getImagesFromFile(
-                                                std::unordered_map<std::string, SDL_Rect> playerImages);
+        virtual std::unordered_map<std::string, int> getImagesFromFile(
+                                                std::unordered_map<std::string, int> playerImages);
+        virtual std::unordered_map<std::string, SDL_Rect> getPlayerClipImages(
+                                                std::unordered_map<std::string, SDL_Rect> playerClipImages);
         virtual std::vector<SDL_Rect> getClipList(); 
         virtual void setClipList(std::vector<SDL_Rect> imageClips);
+
     private:
-        SDL_Texture* image_;
+        SDL_Texture* image_ = nullptr;
         std::string folderPath_;
-        std::unordered_map<std::string, SDL_Rect> playerImages_;
-        std::vector<std::string> imageLists_;
+        std::unordered_map<std::string, SDL_Rect> playerClipImages_;  //
+        std::unordered_map<std::string, int> fileImages_;
+        std::vector<std::string> jsonFiles_;
         std::vector<SDL_Rect> clipLists_;
 };
 

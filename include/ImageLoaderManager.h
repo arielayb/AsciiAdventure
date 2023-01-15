@@ -24,7 +24,7 @@ class ImageLoaderManager : public AbstractImageLoaderManager {
     private:
         SDL_Texture* image_ = nullptr;
         std::string folderPath_;
-        std::unordered_map<std::string, SDL_Rect> playerClipImages_;  //
+        std::unordered_map<std::string, SDL_Rect> playerClipImages_;  
         std::unordered_map<std::string, int> fileImages_;
         std::vector<std::string> jsonFiles_;
         std::vector<SDL_Rect> clipLists_;

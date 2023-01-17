@@ -94,7 +94,6 @@ bool Main::mainLoop(){
     std::string input;
 
     //  load the textures
-	// ImageManager load;
     imgFac = new ImageManagerFactory();
     imgMgr = imgFac->createImageManagerWithParams(image, renderer);
 

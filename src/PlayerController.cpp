@@ -179,6 +179,20 @@ void PlayerController::playerInput(SDL_Event events)
 
 }
 
+//load the collision for this world
+bool PlayerController::loadWalls(SDL_Rect collision, std::vector<SDL_Rect> wall)
+{
+	for (int i = 0; i <= wall.size(); i++)
+	{
+		if (checkingCollisions(collision, wall[i]))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 //the collision detection fucntion
 bool PlayerController::checkingCollisions(SDL_Rect playerBox, SDL_Rect object)
 {

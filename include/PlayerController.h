@@ -11,6 +11,7 @@ class PlayerController: public AbstractPlayerController{
         void playerInput(SDL_Event events) override;
         bool checkingCollisions(SDL_Rect playerBox, SDL_Rect object) override;
         void collisionManagement(SDL_Rect playerBox) override;
+		bool loadWalls(SDL_Rect collision, std::vector<SDL_Rect> wall) override;
 
         //set the level parameters
 		int levelWidth;
@@ -23,6 +24,9 @@ class PlayerController: public AbstractPlayerController{
         //the player's velocity
 		float velX;
 		float velY;
+
+		//set of walls from the loaded map
+		std::vector<SDL_Rect> setOfWalls;
 
 		////set camera 
 		//SDL_Rect camera;

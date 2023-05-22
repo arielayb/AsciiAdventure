@@ -53,6 +53,8 @@ class Main{
         //variables for the texture and image
 		SDL_Texture* image = NULL;
 
+		SDL_TimerID timer_id;
+
 		ImageManagerFactory* imgFac = nullptr;
     	AbstractImageManager* imgMgr = nullptr;
 		ImageLoaderManagerFactory* imgLoadFac = nullptr;

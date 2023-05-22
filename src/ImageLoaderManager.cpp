@@ -29,7 +29,6 @@ void ImageLoaderManager::setImagesFromFile(std::string folderPath)
         std::stringstream test(imageName);
         std::string filename;
         std::getline(test, filename, '_');
-        std::cout << "filename: " << filename << std::endl;
 
         fileImages_[filename] = size;
         std::vector<std::string>::iterator iter = jsonFiles_.begin();
@@ -41,15 +40,11 @@ void ImageLoaderManager::setImagesFromFile(std::string folderPath)
     int k = 0;
     //int size = fileImages_.size();
     for (iter; iter != fileImages_.end(); iter++){
-        std::cout << "iter: " << iter->second << std::endl;   
         for(int j = 0; j < iter->second; j++){
             std::ifstream jsonFile(jsonFiles_[k]);
             json data = json::parse(jsonFile);
             
             std::string name = data["meta"]["slices"][j]["name"];
-            std::cout << "name:" << name << std::endl;
-
-            std::cout << data["meta"]["slices"][j]["keys"][0]["bounds"] << std::endl;
 
             playerClipImages_[name].x = data["meta"]["slices"][j]["keys"][0]["bounds"]["x"]; 
             playerClipImages_[name].y = data["meta"]["slices"][j]["keys"][0]["bounds"]["y"]; 

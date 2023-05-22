@@ -1,230 +1,203 @@
 #include <WorldManager.h>
 #include <ImageManager.h>
+#include <SDL2/SDL_image.h>
+#include <tmx.h>
 #include <fstream>
 
-bool WorldManager::loadTiles(SDL_Texture* image, SDL_Renderer* renderer, std::vector<SDL_Rect> tileSet){
-    // if (nextLevel)
-	// {
-	// 	SDL_Rect value = { 0, 0, 0, 0 };
-	// 	std::fill(std::begin(setOfWalls), std::end(setOfWalls), value);
-		
-	// 	_prevLevelfile = _levelfile;
-	// 	setLevel(_levelfile);
+WorldManager::WorldManager(SDL_Renderer* ren)
+: ren_(ren)
+{
+    // const char * test = "/home/aaybar/Documents/test/testMap.tmx";
+    // // timer_id = SDL_AddTimer(30, worldMgr->timer_func(), NULL);
+    // /* Set the callback globs in the main function */
+	// tmx_img_load_func = SDL_tex_loader;
+    // tmx_img_free_func = (void (*)(void*))SDL_DestroyTexture;
+    
+    // tmx_map *map = tmx_load(test.c_str());
+	// if (!map) {
+	// 	tmx_perror("Cannot load map");
+	// 	return 1;
+	// }
+}
+
+WorldManager::WorldManager(int width, int height, SDL_Renderer* ren):
+ren_(ren)    
+{}
+
+// bool WorldManager::loadTiles(std::string tileMapFile, SDL_Renderer* renderer){
+//     SDL_TimerID timer_id;
+//     timer_id = SDL_AddTimer(30, timer_func, NULL);
+
+// 	/* Set the callback globs in the main function */
+// 	tmx_img_load_func = SDL_tex_loader;
+// 	tmx_img_free_func = (void (*)(void*))SDL_DestroyTexture;
+
+// 	tmx_map *map = tmx_load(argv[1]);
+// 	if (!map) {
+// 		tmx_perror("Cannot load map");
+// 		return 1;
+// 	}
 	
-	// }
-	// else if (previousLevel)
-	// {
-	// 	SDL_Rect value = { 0, 0, 0, 0 };
-	// 	std::fill(std::begin(setOfWalls), std::end(setOfWalls), value);
-		
-	// 	_levelfile = _prevLevelfile;
-	// 	setLevel(_levelfile);
-				
-	// }
+	
+// }
 
-	//load the map file
-	//std::ifstream map(level);
-	std::ifstream map(levelfile);
+void* WorldManager::SDL_tex_loader(const char *path) {
+	return IMG_LoadTexture(ren_, path);
+}
 
-	ImageManager load;
+void WorldManager::set_color(int color) {
+	tmx_col_bytes col = tmx_col_to_bytes(color);
+	SDL_SetRenderDrawColor(ren_, col.r, col.g, col.b, col.a);
+}
 
-	//set the indexes of the map
-	float indexX = 0.0f;
-	float indexY = 0.0f;
-
-	if (map.fail())
-	{
-		printf("the map file is empty or missing!", SDL_GetError());
-		return false;
+void WorldManager::draw_polyline(double **points, double x, double y, int pointsc) {
+	int i;
+	for (i=1; i<pointsc; i++) {
+		SDL_RenderDrawLine(ren_, x+points[i-1][0], y+points[i-1][1], x+points[i][0], y+points[i][1]);
 	}
+}
 
-	//this char will be used to draw the map.
-	char tile_type;
-	char event_type;
+void WorldManager::draw_polygon(double **points, double x, double y, int pointsc) {
+	draw_polyline(points, x, y, pointsc);
+	if (pointsc > 2) {
+		SDL_RenderDrawLine(ren_, x+points[0][0], y+points[0][1], x+points[pointsc-1][0], y+points[pointsc-1][1]);
+	}
+}
 
-	for (int i = 0; i <= total_tiles; i++)
-	{
-		//read the text file for the first layer
-		map >> tile_type;
-
-		switch (tile_type)
-		{
-		
-			case '(':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(grassDirtTopLeft));
-				break;
-
-			case '-':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(grassDirtHorizontal));
-				break;
-
-			case ')':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(grassDirtTopRight));
-				break;
-
-			case ':':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(grassDirtVertical));
-				break;
-
-			case '}':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(grassDirtBottomRight));
-				break;
-
-			case '{':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(grassDirtBottomLeft));
-				break;
-
-			case '4':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(grassDirtHoriVerLeft));
-				break;
-
-			case '6':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(grassDirtHoriVerRight));
-				break;
-
-			case '5':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(grassDirtFourPaths));
-				break;
-
-			case '8':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(grassDirtVerHoriUp));
-				break;
-
-			case '2':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(grassDirtVerHoriDown));
-				break;
-
-			case 'x':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(darkGrass));
-				break;
-
-			case 'd':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(dirt));
-				break;
-
-			case '~':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(water));
-				break;
-
-			case 'g':
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(grave));
-				break;
-
-			case '%':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeWallBottom));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeWallBottom));
-				break;
-
-			case '=':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeWallTopEndless));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeWallTopEndless));
-				break;
-
-			case '^':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeWallTopEnd));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeWallTopEnd));
-				break;
-
-			case '|':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeWallVertical));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeWallVertical));
-				break;
-
-			case 't':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(tombstone));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(tombstone));
-				break;
-
-			case '<':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeWallCornerTopLeft));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeWallCornerTopLeft));
-				break;
-
-			case '>':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeWallCornerTopRight));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeWallCornerTopRight));
-				break;
-
-			case ',':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeWallCornerBottomLeft));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeWallCornerBottomLeft));
-				break;
-
-			case '.':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeWallCornerBottomRight));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeWallCornerBottomRight));
-				break;
-
-			case '#':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeWallMiddle));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeWallMiddle));
-				break;
-
-			case 'c':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(cross));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(cross));
-				break;
-
-			case '[':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(woodDoor));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(woodDoor));
-				break;
-
-			case 'q':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeShortTopLeft));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeShortTopLeft));
-				break;
-
-			case 'w':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeShortTopRight));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeShortTopRight));
-				break;
-
-			case 'a':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeShortBotLeft));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeShortBotLeft));
-				break;
-
-			case 's':
-				setOfWalls[i] = storeTiles(indexX, indexY, tileHeight_, tileWidth_, tileSet.at(treeShortBotRight));
-				load.renderTexture(indexX, indexY, image, renderer, &tileSet.at(treeShortBotRight));
-				break;
+void WorldManager::draw_objects(tmx_object_group *objgr) {
+	SDL_Rect rect;
+	set_color(objgr->color);
+	tmx_object *head = objgr->head;
+	while (head) {
+		if (head->visible) {
+			if (head->obj_type == OT_SQUARE) {
+				rect.x = head->x;  
+				rect.y = head->y;
+				rect.w = head->width;  
+				rect.h = head->height;
+				SDL_RenderDrawRect(ren_, &rect);
+			}
+			else if (head->obj_type  == OT_POLYGON) {
+				draw_polygon(head->content.shape->points, head->x, head->y, head->content.shape->points_len);
+			}
+			else if (head->obj_type == OT_POLYLINE) {
+				draw_polyline(head->content.shape->points, head->x, head->y, head->content.shape->points_len);
+			}
+			else if (head->obj_type == OT_ELLIPSE) {
+				/* FIXME: no function in SDL2 */
+			}
 		}
+		head = head->next;
+	}
+}
 
-		indexX += tileWidth_;
+void WorldManager::draw_tile(void *image, unsigned int sx, unsigned int sy, unsigned int sw, unsigned int sh,
+               unsigned int dx, unsigned int dy, float opacity, unsigned int flags) {
+	SDL_Rect src_rect, dest_rect;
+	src_rect.x = sx;
+	src_rect.y = sy;
+	src_rect.w = dest_rect.w = sw;
+	src_rect.h = dest_rect.h = sh;
+	dest_rect.x = dx;
+	dest_rect.y = dy;
+	SDL_RenderCopy(ren_, (SDL_Texture*)image, &src_rect, &dest_rect);
+}
 
-		if (indexX >= levelWidth_)
-		{
-			indexX = 0;
-
-			indexY += tileHeight_;
+void WorldManager::draw_layer(tmx_map *map, tmx_layer *layer) {
+	unsigned long i, j;
+	unsigned int gid, x, y, w, h, flags;
+	float op;
+	tmx_tileset *ts;
+	tmx_image *im;
+	void* image;
+	op = layer->opacity;
+	for (i=0; i<map->height; i++) {
+		for (j=0; j<map->width; j++) {
+			gid = (layer->content.gids[(i*map->width)+j]) & TMX_FLIP_BITS_REMOVAL;
+			if (map->tiles[gid] != NULL) {
+				ts = map->tiles[gid]->tileset;
+				im = map->tiles[gid]->image;
+				x  = map->tiles[gid]->ul_x;
+				y  = map->tiles[gid]->ul_y;
+				w  = ts->tile_width;
+				h  = ts->tile_height;
+				if (im) {
+					image = im->resource_image;
+				}
+				else {
+					image = ts->image->resource_image;
+				}
+				flags = (layer->content.gids[(i*map->width)+j]) & ~TMX_FLIP_BITS_REMOVAL;
+				draw_tile(image, x, y, w, h, j*ts->tile_width, i*ts->tile_height, op, flags);
+			}
 		}
 	}
+}
 
-	map.close();
+void WorldManager::draw_image_layer(tmx_image *image) {
+	SDL_Rect dim;
+	dim.x = dim.y = 0;
 
-	//load the hero default sprite
-	if (loaded_hero == false)
-	{
-		player			  = tileSet.at(herodown1);
-		collectionStarted = true;
-		overrideIndex	  = true;
-		loaded_hero		  = true;
+	SDL_Texture *texture = (SDL_Texture*)image->resource_image; // Texture loaded by libTMX
+	SDL_QueryTexture(texture, NULL, NULL, &(dim.w), &(dim.h));
+	SDL_RenderCopy(ren_, texture, NULL, &dim);
+}
+
+void WorldManager::draw_all_layers(tmx_map *map, tmx_layer *layers) {
+	while (layers) {
+		if (layers->visible) {
+
+			if (layers->type == L_GROUP) {
+				draw_all_layers(map, layers->content.group_head);
+			}
+			else if (layers->type == L_OBJGR) {
+				draw_objects(layers->content.objgr);
+			}
+			else if (layers->type == L_IMAGE) {
+				draw_image_layer(layers->content.image);
+			}
+			else if (layers->type == L_LAYER) {
+				draw_layer(map, layers);
+			}
+		}
+		layers = layers->next;
 	}
+}
 
-	player = playerAnimation(player, tileSet);
-	//player = playerSwordAttackAnimation(player, tileSet);
+void WorldManager::render_map(tmx_map *map) {
+	set_color(map->backgroundcolor);
+	SDL_RenderClear(ren_);
+	draw_all_layers(map, map->ly_head);
+}
 
-	//collisionManagement(player, setOfWalls, setOfEvents, setOfCoins);
-	collisionManagement(player);
-	
+Uint32 WorldManager::timer_func(Uint32 interval, void *param) {
+	SDL_Event event;
+	SDL_UserEvent userevent;
 
-	/*load.renderTexture(0, 0, NULL, NULL, &camera);
-	load.renderTexture(xPos - camera.x, yPos - camera.y, NULL, NULL, NULL);*/
-	load.renderTexture(xPos, yPos, image, renderer, &player);
-	/*load.renderTexture(0, 0, NULL, NULL, &camera);
-	load.renderTexture(xPos - camera.x, yPos - camera.y, NULL, NULL, NULL);*/
+	userevent.type = SDL_USEREVENT;
+	userevent.code = 0;
+	userevent.data1 = NULL;
+	userevent.data2 = NULL;
 
+	event.type = SDL_USEREVENT;
+	event.user = userevent;
 
-	return true;
+	SDL_PushEvent(&event);
+	return(interval);
+}
+
+std::string WorldManager::getImageFile(std::string filePath){
+
+    files = imgLoadMgr->getImagesFromFile(files);
+    imageFileIter = files.find(filePath);
+
+    //SDL_Rect clip;
+    if ( imageFileIter == files.end() ){
+       std::cout << "not found" << std::endl;
+    }else{
+        file_ = imageFileIter->first;
+        std::cout << "filename: " << file_ << std::endl; 
+    }
+
+    return file_;
 }

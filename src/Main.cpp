@@ -1,6 +1,8 @@
 #include <thread>
 #include <Main.h>
+#include <WorldManager.h>
 #include <filesystem>
+#include <tmx.h>
 
 Main::Main(){
 
@@ -126,10 +128,26 @@ bool Main::mainLoop(){
     bool contGameSelect = false;
     bool exit = false;
 
+    WorldManager worldMgr(renderer);
+    // WorldManager * worldMgr = new WorldManager(renderer);
+    const char * test = "images/testMap.tmx";
+    // // timer_id = SDL_AddTimer(30, worldMgr->timer_func(), NULL);
+    // /* Set the callback globs in the main function */
+	timer_id = SDL_AddTimer(30, (SDL_TimerCallback)worldMgr.timer_func(30, NULL), NULL);
+
+	tmx_img_load_func = (void* (*)(const char*))worldMgr.SDL_tex_loader(test);
+    tmx_img_free_func = (void (*)(void*))SDL_DestroyTexture;
+    
+    tmx_map *map = tmx_load(test);
+	if (!map) {
+		tmx_perror("Cannot load map");
+		return 1;
+	}
+
     // main loop for main menu title
     while(!quit){
         //clear the rendering so that we can re-render/update the screen
-        // SDL_RenderClear(renderer);
+        SDL_RenderClear(renderer);
         
         // imgMgr->renderTexture(880, 500, img, renderer, clip);
 
@@ -187,23 +205,38 @@ bool Main::mainLoop(){
                             contGame = false;
                             contGameSelect = true;
                             newGame = true;
-                        }else if (events.key.keysym.sym == SDLK_RETURN){
+                        }
+                        
+                        if (events.key.keysym.sym == SDLK_RETURN){
                             if (x == 880 && y == 500)
                             {
                                 // Mix_PlayChannel(-1, success, 0);
                                 
                                 // menu = false;
                                 //start = true;
-                                                                
+                                SDL_DestroyTexture(img);                                
                                 SDL_DestroyTexture(titleTxt);
                                 SDL_DestroyTexture(startGameTxt);
                                 SDL_DestroyTexture(continueTxt);
+                                SDL_DestroyTexture(exitGameTxt);
+
+                                //update the screen
+                                SDL_RenderPresent(renderer);
                             
                                 //Stop the music 
                                 //Mix_HaltMusic();
-                            }
-                            else if (x == 880 && y == 610)
-                            {
+                            }else if(x == 880 && y == 555){
+                                SDL_DestroyTexture(img);
+                                SDL_DestroyTexture(titleTxt);
+                                SDL_DestroyTexture(startGameTxt);
+                                SDL_DestroyTexture(continueTxt);
+                                SDL_DestroyTexture(exitGameTxt);
+
+                                worldMgr.render_map(map);
+
+                                SDL_RenderPresent(renderer);
+
+                            }else if (x == 880 && y == 610){
                                 //Stop the music 
                                 //Mix_HaltMusic();
                                 
@@ -228,10 +261,18 @@ bool Main::mainLoop(){
             imgMgr->renderText(900, 555, continueTxt, renderer, nullptr);
             imgMgr->renderText(900, 610, exitGameTxt, renderer, nullptr);
 
+            //load the tile set
+            // worldMgr->loadTiles("/home/aaybar/Documents/test/testMap.tmx", renderer);
+            // worldMgr.render_map(map);
+
             //update the screen
             SDL_RenderPresent(renderer);
         }
     }
+
+    tmx_map_free(map);
+
+    // SDL_RemoveTimer(timer_id);
 
     //  Deallocate surface
 	SDL_DestroyTexture(image);
@@ -284,7 +325,7 @@ std::string Main::getImageFile(std::string filePath){
 
     //SDL_Rect clip;
     if ( imageFileIter == files.end() ){
-       std::cout << "not found" << std::endl;
+       std::cout << "image file not found" << std::endl;
     }else{
         file_ = imageFileIter->first;
         std::cout << "filename: " << file_ << std::endl; 

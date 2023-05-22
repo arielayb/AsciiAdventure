@@ -10,4 +10,4 @@ class AbstractCameraManager{
 
 };
 
-#endif;
+#endif
